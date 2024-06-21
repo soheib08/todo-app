@@ -1,5 +1,5 @@
-import { IGenericRepository } from '../generic-repository';
-import { User } from './user';
+import { IGenericRepository } from 'src/domain/generic-repository';
+import { User } from '../user';
 
 export interface IUserRepository extends IGenericRepository<User> {
   findOne(id: string): Promise<User>;

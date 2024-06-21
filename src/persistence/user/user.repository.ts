@@ -1,8 +1,8 @@
 import { Types, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
-import { IUserRepository } from 'src/domain/user/Iuser.repository';
 import { User } from 'src/domain/user/user';
+import { IUserRepository } from 'src/domain/user/interface/Iuser.repository';
 
 @Injectable()
 export default class UserRepository implements IUserRepository {

@@ -1,8 +1,10 @@
 export class User {
   public id: string;
+  public todoLists: string[];
   constructor(
     public username: string,
     public password: string,
-    public todoLists: string[],
-  ) {}
+  ) {
+    this.todoLists = [];
+  }
 }
