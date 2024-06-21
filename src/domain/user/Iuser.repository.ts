@@ -1,4 +1,4 @@
-import { IGenericRepository } from '../repository/generic-repository';
+import { IGenericRepository } from '../generic-repository';
 import { User } from './user';
 
 export interface IUserRepository extends IGenericRepository<User> {

@@ -1,4 +1,4 @@
-import { IGenericRepository } from '../repository/generic-repository';
+import { IGenericRepository } from '../generic-repository';
 
 export interface ITodoListRepository extends IGenericRepository<TodoList> {
   findOne(id: string): Promise<TodoList>;
