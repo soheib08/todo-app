@@ -1,3 +1,3 @@
 export class JwtToken {
-  token: string;
+  constructor(public token: string) {}
 }
