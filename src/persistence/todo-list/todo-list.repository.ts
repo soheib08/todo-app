@@ -1,7 +1,7 @@
 import { Types, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
-import { ITodoListRepository } from 'src/domain/todo-list/Itodo-list.repository';
+import { ITodoListRepository } from 'src/domain/todo/interface/Itodo-list.repository';
 
 @Injectable()
 export default class TodoListRepository implements ITodoListRepository {
