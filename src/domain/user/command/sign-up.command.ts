@@ -1,7 +1,6 @@
 import { Inject, NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { IUserRepository } from '../interface/Iuser.repository';
-import { UserService } from '../user.service';
 import { IPasswordService } from '../interface/password-service.interface';
 import { User } from '../entity/user';
 
@@ -15,12 +14,11 @@ export class UserSignUpCommand {
 export class UserSignupHandler implements ICommandHandler<UserSignUpCommand> {
   constructor(
     @Inject(IUserRepository) private userRepository: IUserRepository,
-    private userService: UserService,
     @Inject(IPasswordService)
     private passwordService: IPasswordService,
   ) {}
   async execute(command: UserSignUpCommand): Promise<void> {
-    const foundUsername = await this.userService.findUserByUsername(
+    const foundUsername = await this.userRepository.findOneByUsername(
       command.username,
     );
     if (foundUsername) throw new NotFoundException('username is already taken');

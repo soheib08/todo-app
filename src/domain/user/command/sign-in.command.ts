@@ -1,8 +1,9 @@
 import { Inject, NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { UserService } from '../user.service';
 import { IPasswordService } from '../interface/password-service.interface';
 import { JwtToken } from '../entity/jwt-token';
+import { IUserRepository } from '../interface/Iuser.repository';
+import { IJwtService } from '../interface/jwt.service.interface';
 
 export class UserSignInCommand {
   constructor(
@@ -13,12 +14,14 @@ export class UserSignInCommand {
 @CommandHandler(UserSignInCommand)
 export class UserSignInHandler implements ICommandHandler<UserSignInCommand> {
   constructor(
-    private userService: UserService,
+    @Inject(IUserRepository) private userRepository: IUserRepository,
     @Inject(IPasswordService)
     private passwordService: IPasswordService,
+    @Inject(IJwtService)
+    private jwtService: IJwtService,
   ) {}
   async execute(command: UserSignInCommand): Promise<JwtToken> {
-    const foundUser = await this.userService.findUserByUsername(
+    const foundUser = await this.userRepository.findOneByUsername(
       command.username,
     );
     if (!foundUser) throw new NotFoundException('username not found');
@@ -29,7 +32,7 @@ export class UserSignInHandler implements ICommandHandler<UserSignInCommand> {
     );
     if (!isPasswordValid) throw new NotFoundException('wrong password');
 
-    const token = await this.userService.createSignInToken(foundUser.username);
+    const token = await this.jwtService.generateToken(foundUser.username);
     return new JwtToken(token);
   }
 }

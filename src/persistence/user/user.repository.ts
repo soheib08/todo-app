@@ -20,6 +20,10 @@ export default class UserRepository implements IUserRepository {
     return this.usersModel.findOne({ _id: id });
   }
 
+  async findOneByUsername(username: string): Promise<User> {
+    return this.usersModel.findOne({ username });
+  }
+
   public async updateOne(id: string, data: Partial<User>) {
     await this.usersModel.updateOne({ _id: id }, { $set: { ...data } });
   }
