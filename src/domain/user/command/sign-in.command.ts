@@ -2,7 +2,7 @@ import { Inject, NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UserService } from '../user.service';
 import { IPasswordService } from '../interface/password-service.interface';
-import { JwtToken } from '../jwt-token';
+import { JwtToken } from '../entity/jwt-token';
 
 export class UserSignInCommand {
   constructor(
@@ -11,7 +11,7 @@ export class UserSignInCommand {
   ) {}
 }
 @CommandHandler(UserSignInCommand)
-export class UserSignupHandler implements ICommandHandler<UserSignInCommand> {
+export class UserSignInHandler implements ICommandHandler<UserSignInCommand> {
   constructor(
     private userService: UserService,
     @Inject(IPasswordService)
@@ -30,7 +30,6 @@ export class UserSignupHandler implements ICommandHandler<UserSignInCommand> {
     if (!isPasswordValid) throw new NotFoundException('wrong password');
 
     const token = await this.userService.createSignInToken(foundUser.username);
-
     return new JwtToken(token);
   }
 }

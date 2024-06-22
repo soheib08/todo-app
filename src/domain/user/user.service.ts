@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from './interface/Iuser.repository';
-import { User } from './user';
+import { User } from './entity/user';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
-    @Inject('IUserRepository')
+    @Inject(IUserRepository)
     private userRepository: IUserRepository,
     private jwtService: JwtService,
   ) {}

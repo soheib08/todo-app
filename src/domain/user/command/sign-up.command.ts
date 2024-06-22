@@ -3,7 +3,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { IUserRepository } from '../interface/Iuser.repository';
 import { UserService } from '../user.service';
 import { IPasswordService } from '../interface/password-service.interface';
-import { User } from '../user';
+import { User } from '../entity/user';
 
 export class UserSignUpCommand {
   constructor(
