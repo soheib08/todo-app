@@ -1,7 +1,7 @@
-class TodoItem {
+export class TodoItem {
   public id: string;
   constructor(
-    public todoListId: string,
+    public todoList: string,
     public title: string,
     public description: string,
     public priority: number,

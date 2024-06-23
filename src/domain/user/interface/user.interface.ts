@@ -1,6 +1,5 @@
 export interface DecodedUser {
-  id: string;
-  email: string;
+  userId: string;
   iat: number;
   exp: number;
 }

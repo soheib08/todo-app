@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
-import { TodoListModel } from '../todo-list/todo-list.schema';
+import { TodoListModel } from './todo-list.schema';
 
 @Schema({ id: true, timestamps: true })
 export class TodoItemModel {
@@ -28,12 +28,12 @@ export class TodoItemModel {
   priority: string;
 }
 
-export type UserDocument = HydratedDocument<TodoItemModel>;
-export const UserSchema = SchemaFactory.createForClass(TodoItemModel).set(
+export type TodoItemDocument = HydratedDocument<TodoItemModel>;
+export const TodoItemSchema = SchemaFactory.createForClass(TodoItemModel).set(
   'versionKey',
   false,
 );
 
-UserSchema.virtual('id').get(function () {
+TodoItemSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });

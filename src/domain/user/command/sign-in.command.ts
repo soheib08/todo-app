@@ -32,7 +32,7 @@ export class UserSignInHandler implements ICommandHandler<UserSignInCommand> {
     );
     if (!isPasswordValid) throw new NotFoundException('wrong password');
 
-    const token = await this.jwtService.generateToken(foundUser.username);
+    const token = await this.jwtService.generateToken(foundUser.id);
     return new JwtToken(token);
   }
 }

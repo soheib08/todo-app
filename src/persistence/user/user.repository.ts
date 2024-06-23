@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/domain/user/entity/user';
 import { IUserRepository } from 'src/domain/user/interface/Iuser.repository';
+import { UserModel } from './user.schema';
 
 @Injectable()
 export default class UserRepository implements IUserRepository {
@@ -17,11 +18,11 @@ export default class UserRepository implements IUserRepository {
   }
 
   async findOne(id: string): Promise<User> {
-    return this.usersModel.findOne({ _id: id });
+    return await this.usersModel.findOne({ _id: id });
   }
 
   async findOneByUsername(username: string): Promise<User> {
-    return this.usersModel.findOne({ username });
+    return await this.usersModel.findOne({ username });
   }
 
   public async updateOne(id: string, data: Partial<User>) {
@@ -36,5 +37,9 @@ export default class UserRepository implements IUserRepository {
     return await this.usersModel.deleteOne({
       _id: id,
     });
+  }
+
+  async findUserWithTodoLists(id: string): Promise<UserModel> {
+    return await this.usersModel.findOne({ _id: id }).populate('todoLists');
   }
 }

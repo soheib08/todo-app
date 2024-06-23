@@ -2,6 +2,8 @@ import { Types, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { ITodoListRepository } from 'src/domain/todo/interface/Itodo-list.repository';
+import { TodoList } from 'src/domain/todo/entity/todo-list';
+import { TodoListModel } from './todo-list.schema';
 
 @Injectable()
 export default class TodoListRepository implements ITodoListRepository {
@@ -33,5 +35,12 @@ export default class TodoListRepository implements ITodoListRepository {
     return await this.TodoListsModel.deleteOne({
       _id: id,
     });
+  }
+
+  async findOneWithTodoItems(id: string): Promise<TodoListModel> {
+    const todoList = await this.TodoListsModel.findOne<TodoListModel>({
+      _id: id,
+    }).populate('todoItems');
+    return todoList;
   }
 }

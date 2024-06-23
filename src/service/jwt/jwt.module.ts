@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { UserJwtService } from './jwt.service';
 import { IJwtService } from 'src/domain/user/interface/jwt.service.interface';
+import { JwtStrategy } from './jwt.strategy';
 
 @Global()
 @Module({
@@ -15,7 +16,7 @@ import { IJwtService } from 'src/domain/user/interface/jwt.service.interface';
       inject: [ConfigService],
     }),
   ],
-  providers: [{ provide: IJwtService, useClass: UserJwtService }],
+  providers: [{ provide: IJwtService, useClass: UserJwtService }, JwtStrategy],
   exports: [IJwtService],
 })
 export class UserJwtModule {}
