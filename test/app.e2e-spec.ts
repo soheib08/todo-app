@@ -8,20 +8,17 @@ import { IPasswordService } from '../src/domain/user/interface/password-service.
 import { IJwtService } from '../src/domain/user/interface/jwt.service.interface';
 import { JwtToken } from '../src/domain/user/entity/jwt-token';
 
-// Mock for IUserRepository
 const mockUserRepository = {
   findOneByUsername: jest.fn(),
   createOne: jest.fn(),
   findUserWithTodoLists: jest.fn(),
 };
 
-// Mock for IPasswordService
 const mockPasswordService = {
   hash: jest.fn(),
   compare: jest.fn(),
 };
 
-// Mock for IJwtService
 const mockJwtService = {
   generateToken: jest.fn(),
   verifyToken: jest.fn(),
