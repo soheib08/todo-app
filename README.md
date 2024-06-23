@@ -1,6 +1,6 @@
 # Todo List Project
 
-This project is a Todo List application built with NestJS, using MongoDB as the database. The application follows Clean Architecture principles and incorporates CQRS, Event-Driven architecture, the Saga pattern, and Domain-Driven Design (DDD) principles.
+This project is a Todo List application built with NestJS, using MongoDB as the database. I "tried" to implement a application that follows Clean Architecture principles and incorporates CQRS, Event-Driven architecture, and Domain-Driven Design (DDD) principles.
 
 ## Getting Started
 
@@ -25,7 +25,7 @@ Make sure you have the following installed on your machine:
    npm run start:dev
    ```
 
-   you can run api documentation in localhost:3000/api
+   you can see api documentation in [localhost:3000/api](localhost:3000/api)
 
 3. run e2e test:
 
