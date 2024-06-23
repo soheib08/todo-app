@@ -25,7 +25,7 @@ Make sure you have the following installed on your machine:
    npm run start:dev
    ```
 
-   you can see api documentation in [localhost:3000/api](localhost:3000/api)
+You can see the API documentation at [localhost:3000/api](http://localhost:3000/api)
 
 3. run e2e test:
 
