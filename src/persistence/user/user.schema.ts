@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
+import { TodoList } from 'src/domain/todo/entity/todo-list';
 
 @Schema({ id: true, timestamps: true })
 export class UserModel {

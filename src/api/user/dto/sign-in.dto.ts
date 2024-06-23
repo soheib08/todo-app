@@ -12,3 +12,10 @@ export class SignInDto {
   @IsString()
   password: string;
 }
+
+export class JwtTokenDto {
+  @ApiProperty({ example: 'jwt token' })
+  @IsNotEmpty()
+  @IsString()
+  token: string;
+}

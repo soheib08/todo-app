@@ -40,6 +40,8 @@ export default class UserRepository implements IUserRepository {
   }
 
   async findUserWithTodoLists(id: string): Promise<UserModel> {
-    return await this.usersModel.findOne({ _id: id }).populate('todoLists');
+    return await this.usersModel
+      .findOne<UserModel>({ _id: id })
+      .populate('todoLists');
   }
 }

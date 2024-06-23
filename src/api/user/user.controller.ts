@@ -7,16 +7,23 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { SignUpDto } from './dto/sign-up.dto';
 import { UserSignUpCommand } from 'src/domain/user/command/sign-up.command';
-import { SignInDto } from './dto/sign-in.dto';
+import { JwtTokenDto, SignInDto } from './dto/sign-in.dto';
 import { JwtToken } from 'src/domain/user/entity/jwt-token';
 import { UserSignInCommand } from 'src/domain/user/command/sign-in.command';
 import { UserDetailQuery } from 'src/domain/user/query/user-detail.query';
 import { User } from 'src/service/jwt/user.decorator';
 import { DecodedUser } from 'src/domain/user/interface/user.interface';
 import { JwtAuthGuard } from 'src/service/jwt/jwt.guard';
+import { UserDetailDto } from './dto/user-detail.dto';
 
 @ApiTags('User')
 @ApiBearerAuth()
@@ -37,7 +44,8 @@ export default class UserController {
 
   @Post('signin')
   @ApiOperation({ summary: 'signin user, get single access token' })
-  async signInUser(@Body() body: SignInDto): Promise<JwtToken> {
+  @ApiResponse({ type: JwtTokenDto })
+  async signInUser(@Body() body: SignInDto): Promise<JwtTokenDto> {
     return await this.commandBus.execute(
       new UserSignInCommand(body.username, body.password),
     );
@@ -46,8 +54,9 @@ export default class UserController {
   @Get('detail')
   @ApiTags('TodoList')
   @ApiOperation({ summary: 'get user detail info with todoLists' })
+  @ApiResponse({ type: UserDetailDto })
   @UseGuards(JwtAuthGuard)
-  async userDetail(@User() user: DecodedUser): Promise<JwtToken> {
+  async userDetail(@User() user: DecodedUser): Promise<UserDetailDto> {
     return await this.queryBus.execute(new UserDetailQuery(user.userId));
   }
 }
