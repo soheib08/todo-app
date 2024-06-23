@@ -1,9 +1,10 @@
 import { Inject, NotFoundException } from '@nestjs/common';
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { ITodoListRepository } from '../interface/Itodo-list.repository';
 import { ITodoItemRepository } from '../interface/Itodo-item.repository';
 import { TodoItemPriority } from '../constant/order-item-priority';
 import { TodoItem } from '../entity/todo-item';
+import { TodoItemCreatedEvent } from '../events/todo-item-created.event';
 
 export class CreateTodoItemCommand {
   constructor(
@@ -22,6 +23,7 @@ export class CreateTodoItemHandler
     private todoListRepository: ITodoListRepository,
     @Inject(ITodoItemRepository)
     private todoItemRepository: ITodoItemRepository,
+    private eventBus: EventBus,
   ) {}
   async execute(command: CreateTodoItemCommand): Promise<void> {
     const foundTodoList = await this.todoListRepository.findOne(
@@ -37,6 +39,9 @@ export class CreateTodoItemHandler
         command.priority,
       ),
     );
-    //send event for update user entity
+
+    this.eventBus.publish(
+      new TodoItemCreatedEvent(createdItem.id, createdItem.todoList),
+    );
   }
 }

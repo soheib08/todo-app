@@ -1,7 +1,8 @@
 import { Inject } from '@nestjs/common';
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { ITodoListRepository } from '../interface/Itodo-list.repository';
 import { TodoList } from '../entity/todo-list';
+import { TodoListCreatedEvent } from '../events/todo-list-created.event';
 
 export class CreateTodoListCommand {
   constructor(
@@ -16,11 +17,14 @@ export class CreateTodoListHandler
   constructor(
     @Inject(ITodoListRepository)
     private todoListRepository: ITodoListRepository,
+    private eventBus: EventBus,
   ) {}
   async execute(command: CreateTodoListCommand): Promise<void> {
     const createdTodoList = await this.todoListRepository.createOne(
       new TodoList(command.userId, command.title),
     );
-    //send event for update user entity
+    this.eventBus.publish(
+      new TodoListCreatedEvent(createdTodoList.id, createdTodoList.userId),
+    );
   }
 }

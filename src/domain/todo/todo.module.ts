@@ -7,6 +7,11 @@ import { ChangeTodoItemPriorityHandler } from './command/change-todo-item-priori
 import { CreateTodoItemHandler } from './command/create-todo-item.command';
 import { UpdateTodoItemHandler } from './command/update-todo-item.command';
 import { DeleteTodoItemHandler } from './command/delete-todo-item.command';
+import { TodoListDeletedEventHandler } from './events/todo-list-deleted.event';
+import { TodoListCreatedEventHandler } from './events/todo-list-created.event';
+import { TodoItemCreatedEventHandler } from './events/todo-item-created.event';
+import { TodoItemDeletedEventHandler } from './events/todo-item-deleted.event';
+import { CqrsModule } from '@nestjs/cqrs';
 
 const commandHandlers = [
   CreateTodoListHandler,
@@ -17,9 +22,17 @@ const commandHandlers = [
   DeleteTodoItemHandler,
   ChangeTodoItemPriorityHandler,
 ];
+
+const queryHandlers = [];
+const eventHandlers = [
+  TodoListDeletedEventHandler,
+  TodoListCreatedEventHandler,
+  TodoItemCreatedEventHandler,
+  TodoItemDeletedEventHandler,
+];
 @Module({
-  imports: [PersistenceModule],
+  imports: [PersistenceModule, CqrsModule],
   controllers: [],
-  providers: [...commandHandlers],
+  providers: [...commandHandlers, ...queryHandlers, ...eventHandlers],
 })
 export class TodoModule {}

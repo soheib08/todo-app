@@ -1,6 +1,7 @@
 import { Inject, NotFoundException } from '@nestjs/common';
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { ITodoItemRepository } from '../interface/Itodo-item.repository';
+import { TodoItemDeletedEvent } from '../events/todo-item-deleted.event';
 
 export class DeleteTodoItemCommand {
   constructor(public id: string) {}
@@ -12,6 +13,7 @@ export class DeleteTodoItemHandler
   constructor(
     @Inject(ITodoItemRepository)
     private todoItemRepository: ITodoItemRepository,
+    private eventBus: EventBus,
   ) {}
   async execute(command: DeleteTodoItemCommand): Promise<void> {
     const foundTodoItem = await this.todoItemRepository.findOne(command.id);
@@ -19,6 +21,8 @@ export class DeleteTodoItemHandler
 
     await this.todoItemRepository.deleteOne(foundTodoItem.id);
 
-    //update user entity
+    this.eventBus.publish(
+      new TodoItemDeletedEvent(foundTodoItem.id, foundTodoItem.todoList),
+    );
   }
 }
