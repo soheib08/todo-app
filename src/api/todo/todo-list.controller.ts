@@ -16,19 +16,19 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { DecodedUser } from 'src/domain/user/interface/user.interface';
+import { DecodedUser } from '../../domain/user/interface/user.interface';
 import { User } from '../../service/jwt/user.decorator';
-import { JwtAuthGuard } from 'src/service/jwt/jwt.guard';
-import { CreateTodoListCommand } from 'src/domain/todo/command/create-todo-list.command';
+import { JwtAuthGuard } from '../../service/jwt/jwt.guard';
+import { CreateTodoListCommand } from '../../domain/todo/command/create-todo-list.command';
 import { CreateTodoListDto } from './dto/create-todo-list.dto';
 import { UpdateTodoListDto } from './dto/update-todo-list.dto';
-import { UpdateTodoListCommand } from 'src/domain/todo/command/update-todo-list.command';
-import { DeleteTodoListCommand } from 'src/domain/todo/command/delete-todo-list.command';
-import { TodoListDetailQuery } from 'src/domain/todo/query/todo-list-detail.query';
-import { DeleteTodoItemCommand } from 'src/domain/todo/command/delete-todo-item.command';
-import { UpdateTodoItemCommand } from 'src/domain/todo/command/update-todo-item.command';
-import { CreateTodoItemCommand } from 'src/domain/todo/command/create-todo-item.command';
-import { ChangeTodoItemPriorityCommand } from 'src/domain/todo/command/change-todo-item-priority.command';
+import { UpdateTodoListCommand } from '../../domain/todo/command/update-todo-list.command';
+import { DeleteTodoListCommand } from '../../domain/todo/command/delete-todo-list.command';
+import { TodoListDetailQuery } from '../../domain/todo/query/todo-list-detail.query';
+import { DeleteTodoItemCommand } from '../../domain/todo/command/delete-todo-item.command';
+import { UpdateTodoItemCommand } from '../../domain/todo/command/update-todo-item.command';
+import { CreateTodoItemCommand } from '../../domain/todo/command/create-todo-item.command';
+import { ChangeTodoItemPriorityCommand } from '../../domain/todo/command/change-todo-item-priority.command';
 import { UpdateTodoItemDto } from './dto/update-todo-item.dto';
 import { TodoItemPriorityDto } from './dto/todo-item-priority.dto';
 import { CreateTodoItemDto } from './dto/create-todo-item.dto';

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { TodoItemPriority } from 'src/domain/todo/constant/order-item-priority';
+import { TodoItemPriority } from '../../../domain/todo/constant/order-item-priority';
 
 export class TodoItemDto {
   @ApiProperty({ example: 'object id' })

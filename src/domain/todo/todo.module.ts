@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PersistenceModule } from 'src/persistence/persistence.module';
+import { PersistenceModule } from '../../persistence/persistence.module';
 import { CreateTodoListHandler } from './command/create-todo-list.command';
 import { DeleteTodoListHandler } from './command/delete-todo-list.command';
 import { UpdateTodoListHandler } from './command/update-todo-list.command';

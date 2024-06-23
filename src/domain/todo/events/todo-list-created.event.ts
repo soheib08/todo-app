@@ -1,6 +1,6 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
-import { IUserRepository } from 'src/domain/user/interface/Iuser.repository';
+import { IUserRepository } from '../../../domain/user/interface/Iuser.repository';
 export class TodoListCreatedEvent {
   constructor(
     public listId: string,

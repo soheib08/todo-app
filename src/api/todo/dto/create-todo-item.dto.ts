@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { TodoItemPriority } from 'src/domain/todo/constant/order-item-priority';
+import { TodoItemPriority } from '../../../domain/todo/constant/order-item-priority';
 
 export class CreateTodoItemDto {
   @ApiProperty({ example: 'object id', description: 'todo list id' })
