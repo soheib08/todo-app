@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 import { TodoListModel } from './todo-list.schema';
+import { TodoItemPriority } from 'src/domain/todo/constant/order-item-priority';
 
 @Schema({ id: true, timestamps: true })
 export class TodoItemModel {
@@ -23,9 +24,9 @@ export class TodoItemModel {
 
   @Prop({
     required: true,
-    type: String,
+    enum: TodoItemPriority,
   })
-  priority: string;
+  priority: TodoItemPriority;
 }
 
 export type TodoItemDocument = HydratedDocument<TodoItemModel>;

@@ -29,6 +29,8 @@ export class CreateTodoItemHandler
     const foundTodoList = await this.todoListRepository.findOne(
       command.todoList,
     );
+    console.log(command);
+
     if (!foundTodoList) throw new NotFoundException('todo list not found');
 
     const createdItem = await this.todoItemRepository.createOne(

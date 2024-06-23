@@ -12,6 +12,7 @@ import { TodoListCreatedEventHandler } from './events/todo-list-created.event';
 import { TodoItemCreatedEventHandler } from './events/todo-item-created.event';
 import { TodoItemDeletedEventHandler } from './events/todo-item-deleted.event';
 import { CqrsModule } from '@nestjs/cqrs';
+import { TodoListDetailHandler } from './query/todo-list-detail.query';
 
 const commandHandlers = [
   CreateTodoListHandler,
@@ -23,7 +24,7 @@ const commandHandlers = [
   ChangeTodoItemPriorityHandler,
 ];
 
-const queryHandlers = [];
+const queryHandlers = [TodoListDetailHandler];
 const eventHandlers = [
   TodoListDeletedEventHandler,
   TodoListCreatedEventHandler,

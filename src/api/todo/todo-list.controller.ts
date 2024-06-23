@@ -12,7 +12,6 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
   ApiBearerAuth,
-  ApiOkResponse,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -88,7 +87,7 @@ export default class TodoListController {
   ): Promise<HttpStatus> {
     await this.commandBus.execute(
       new CreateTodoItemCommand(
-        user.userId,
+        body.todoList,
         body.title,
         body.description,
         body.priority,

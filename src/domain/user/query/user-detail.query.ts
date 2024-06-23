@@ -1,6 +1,7 @@
 import { Inject, NotFoundException } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { IUserRepository } from '../interface/Iuser.repository';
+import { title } from 'process';
 
 export class UserDetailQuery {
   constructor(public userId: string) {}
@@ -22,7 +23,13 @@ export class UserDetailHandler implements IQueryHandler<UserDetailQuery> {
     return {
       id: foundUser.id,
       username: foundUser.username,
-      todoLists: foundUser.todoLists,
+      todoLists: foundUser.todoLists.map((item) => {
+        return {
+          id: item.id,
+          title: item.title,
+          todoItems: item.todoItems,
+        };
+      }),
     };
   }
 }

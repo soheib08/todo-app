@@ -1,7 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { ITodoListRepository } from '../interface/Itodo-list.repository';
 import { Inject, NotFoundException } from '@nestjs/common';
-import { TodoList } from '../entity/todo-list';
 import { TodoListModel } from 'src/persistence/todo/todo-list.schema';
 
 export class TodoListDetailQuery {
@@ -27,7 +26,14 @@ export class TodoListDetailHandler
       id: foundTodoList.id,
       title: foundTodoList.title,
       userId: foundTodoList.userId,
-      todoItems: foundTodoList.todoItems,
+      todoItems: foundTodoList.todoItems.map((item) => {
+        return {
+          id: item.id,
+          title: item.title,
+          priority: item.priority,
+          description: item.description,
+        };
+      }),
     };
   }
 }
